@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+process.on('uncaughtException', function (err) {
+    console.log('未处理的异常：' + err)
+})
+
+process.on('unhandledRejection', function (err) {
+    console.error('未处理的reject异常: ', err)
+})
+
+/* 加载环境变量 */
+require('../libs/tools/env.tools').load()
+/* 加载配置 */
+global.config = require(process.env.NODE_ENV === 'production' ? '../config/config' : '../config/config.debug')
+const server = require('http').createServer(require('../app'));
+const init = require('../libs/tools/init');
+(async () => {
+    /* 加载全局变量 */
+    await init()
+    setTimeout(_ => {
+        const port = 8888
+        server.listen(port)
+        server.on('listening', function () {
+            console.log('监听端口：' + port)
+        })
+    }, 2000)
+})()
