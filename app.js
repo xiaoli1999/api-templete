@@ -1,6 +1,5 @@
 const express = require('express')
 const userAgent = require('express-useragent')
-const UTIL = require('./libs/util')
 const app = express()
 // 输出环境信息
 console.log('运行环境:', process.env.NODE_ENV)

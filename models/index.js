@@ -20,7 +20,11 @@ const sequelize = new Sequelize(
             min: 0
         },
         logging: process.env.NODE_ENV === 'production' ? false : console.log,
-        benchmark: process.env.NODE_ENV !== 'production'
+        benchmark: process.env.NODE_ENV !== 'production',
+        dialectOptions: { // 格式化时间日期
+            dateStrings: true,
+            typeCast: true
+        }
     })
 const db = {}
 fs.readdirSync(__dirname).filter(function (file) {
